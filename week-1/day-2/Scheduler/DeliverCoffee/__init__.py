@@ -1,7 +1,10 @@
+import azure.functions as func
 import datetime
 import logging
 
-import azure.functions as func
+from importlib.machinery import SourceFileLoader
+notify = SourceFileLoader("notify", "/home/steve/projects/serverless-challenge/week-1/day-2/Scheduler/notify.py"
+                          ).load_module()
 
 
 def main(deliverCoffee: func.TimerRequest) -> None:
@@ -10,9 +13,11 @@ def main(deliverCoffee: func.TimerRequest) -> None:
     utc_timestamp = datetime.datetime.utcnow().replace(
         tzinfo=datetime.timezone.utc).isoformat()
 
-    # TODO: Logic for which delivery time
+    # TODO: Add logic to see who to deliver coffee
+    message = "Deliver the coffee!"
     if deliverCoffee.past_due:
-        logging.info('Start the coffee and take out the cups.')
+        logging.info(message)
+        notify.main(message)
 
     else:
         logging.info('Hmm, something happened.')

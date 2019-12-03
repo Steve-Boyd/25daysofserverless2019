@@ -1,17 +1,22 @@
+import azure.functions as func
 import datetime
 import logging
 
-import azure.functions as func
+from importlib.machinery import SourceFileLoader
+notify = SourceFileLoader("notify", "/home/steve/projects/serverless-challenge/week-1/day-2/Scheduler/notify.py"
+                          ).load_module()
 
 
-def main(startCoffee: func.TimerRequest) -> None:
+def main(chill: func.TimerRequest) -> None:
 
     # Stockholm time is UTC +1 and all triggers have been adjusted accordingly
     utc_timestamp = datetime.datetime.utcnow().replace(
         tzinfo=datetime.timezone.utc).isoformat()
 
-    if startCoffee.past_due:
-        logging.info('Start the coffee and take out the cups.')
+    message = "Good job! Take a break!"
+    if chill.past_due:
+        logging.info(message)
+        notify.main(message)
 
     else:
         logging.info('Hmm, something happened.')

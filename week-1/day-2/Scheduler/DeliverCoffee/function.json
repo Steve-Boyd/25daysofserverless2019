@@ -2,7 +2,7 @@
   "scriptFile": "__init__.py",
   "bindings": [
     {
-      "name": "startCoffee",
+      "name": "deliverCoffee",
       "type": "timerTrigger",
       "direction": "in",
       "schedule": "0 35,45 9 13 12 *"
